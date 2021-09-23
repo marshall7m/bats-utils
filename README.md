@@ -1,2 +1,2 @@
-# bats-utils
-Handful of helper BATS functions and scripts
+# bash-utils
+Handful of helper bash functions and scripts

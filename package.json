@@ -1,0 +1,22 @@
+{
+    "name": "bats-utils",
+    "version": "0.0.1",
+    "description": "Helper bash functions and scripts for BAT tests",
+    "homepage": "https://github.com/marshall7m/bats-utils",
+    "author": "Marshall Mamiya",
+    "repository": "github:marshall7m/bats-utils",
+    "directories": {
+      "lib": "src",
+      "test": "test"
+    },
+    "files": [
+      "load.sh",
+      "src"
+    ],
+    "keywords": [
+      "bats",
+      "bash",
+      "shell",
+      "helper"
+    ]
+  }
