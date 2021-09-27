@@ -1,6 +1,5 @@
 #!/bin/bash
-source "$( cd "$( dirname "$BASH_SOURCE[0]" )" && cd "$(git rev-parse --show-toplevel)" >/dev/null 2>&1 && pwd )/node_modules/bats-utils/load.bash"
-
+source "$( cd "$( dirname "$BASH_SOURCE[0]" )" && cd "$(git rev-parse --show-toplevel)" >/dev/null 2>&1 && pwd )/node_modules/bash-utils/load.bash"
 clone_repo() {
 	log "FUNCNAME=$FUNCNAME" "DEBUG"
 
