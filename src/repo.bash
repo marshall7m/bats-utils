@@ -1,19 +1,5 @@
 #!/bin/bash
 
-clone_testing_repo() {
-	log "FUNCNAME=$FUNCNAME" "DEBUG"
-	local clone_url=$1
-	local clone_destination=$2
-
-	local_clone_git=$clone_destination/.git
-
-	if [ ! -d $local_clone_git ]; then
-		git clone "$clone_url" "$clone_destination"
-	else
-		log ".git already exists in clone destination" "INFO"
-	fi
-}
-
 setup_test_file_repo() {
 	log "FUNCNAME=$FUNCNAME" "DEBUG"
 
@@ -25,7 +11,7 @@ setup_test_file_repo() {
 	export TEST_FILE_REPO_DIR="$BATS_FILE_TMPDIR/test-repo"
 	log "TEST_FILE_REPO_DIR: $TEST_FILE_REPO_DIR" "DEBUG"
 
-	clone_testing_repo $clone_url $TEST_FILE_REPO_DIR
+	clone_repo $clone_url $TEST_FILE_REPO_DIR
 }
 
 setup_test_file_tf_state() {
@@ -37,7 +23,7 @@ setup_test_file_tf_state() {
 		log "terragrunt_root_dir is not set" "ERROR"
 		exit 1
 	elif [ -z "$TEST_FILE_REPO_DIR" ]; then
-		log "terragrunt_root_dir is not set" "ERROR"
+		log "TEST_FILE_REPO_DIR is not set" "ERROR"
 		exit 1
 	fi
 
@@ -52,16 +38,20 @@ setup_test_file_tf_state() {
 	log "Absolute path to Terragrunt parent directory: $abs_terragrunt_root_dir"
 
 	log "Applying all terragrunt repo configurations" "INFO"
-	terragrunt run-all apply --terragrunt-non-interactive --terragrunt-working-dir "$abs_terragrunt_root_dir" -auto-approve || exit 1
+	terragrunt run-all apply --terragrunt-non-interactive --terragrunt-working-dir "$abs_terragrunt_root_dir" -auto-approve 2>&1 || exit 1
 }
 
 setup_test_case_repo() {
 	log "FUNCNAME=$FUNCNAME" "DEBUG"
 
+	if [ -z "$TEST_FILE_REPO_DIR" ]; then
+		log "TEST_FILE_REPO_DIR is not set" "ERROR"
+		exit 1
+	fi
+
 	export TEST_CASE_REPO_DIR="$BATS_TEST_TMPDIR/test-repo"
 	log "Cloning local template Github repo to test case tmp dir: $TEST_CASE_REPO_DIR" "INFO"
-	clone_testing_repo $TEST_FILE_REPO_DIR $TEST_CASE_REPO_DIR
-	cd "$TEST_CASE_REPO_DIR"
+	clone_repo $TEST_FILE_REPO_DIR $TEST_CASE_REPO_DIR
 }
 
 setup_test_case_tf_state() {

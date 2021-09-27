@@ -7,12 +7,21 @@
     "repository": "github:marshall7m/bats-utils",
     "directories": {
       "lib": "src",
-      "test": "test"
+      "tests": "tests"
     },
     "files": [
-      "load.sh",
+      "load.bash",
       "src"
     ],
+    "dependencies": {
+      "bash-utils": "https://github.com/marshall7m/bash-utils"
+    },
+    "devDependencies": {
+      "bash-utils": "https://github.com/marshall7m/bash-utils",
+      "bats": "https://github.com/bats-core/bats-core",
+      "bats-assert": "https://github.com/bats-core/bats-assert",
+      "bats-support": "https://github.com/bats-core/bats-support"
+    },
     "keywords": [
       "bats",
       "bash",
