@@ -40,7 +40,7 @@ setup_test_case_tf_state() {
 	log "Test case tf state dir: $test_case_tf_state_dir" "INFO"
 
 	log "Copying test file's terraform state file structure to test case repo tmp dir" "INFO"
-	cp -rv "$TESTING_LOCAL_PARENT_TF_STATE_DIR" "$test_case_tf_state_dir"
+	cp -rv "$TESTING_LOCAL_PARENT_TF_STATE_DIR" "$test_case_tf_state_dir"  > /dev/null
 
 	#redirect tf state files to test case dir instead of test file dir
 	export TESTING_LOCAL_PARENT_TF_STATE_DIR="$test_case_tf_state_dir"
